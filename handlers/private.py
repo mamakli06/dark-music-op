@@ -31,7 +31,7 @@ async def start(_, message: Message):
                         "Channel 📣", url="https://t.me/phoenix_music_new"
                     ),
                     InlineKeyboardButton(
-                        "Owner 👑", url="https://t.me/@akshi_s_ashu"
+                        "Owner 👑", url="https://t.me/akshi_s_ashu"
                     )
                 ]
             ]
