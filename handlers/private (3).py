@@ -25,7 +25,7 @@ async def start(_, message: Message):
             [
                 [
                     InlineKeyboardButton(
-                        "Group 💬", url="https://t.me/phoenix_music_suport"
+                        "Group 💬", url="https://t.me/phoenix_music_support_help"
                     ),
                     InlineKeyboardButton(
                         "Channel 📣", url="https://t.me/phoenix_music_new"
