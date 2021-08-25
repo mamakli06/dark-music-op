@@ -1,68 +1,120 @@
-from os import path
-
 from pyrogram import Client
-from pyrogram.types import Message, Voice
+from pyrogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 
-import callsmusic
+from config import BOT_NAME as bn
+from helpers.filters import filters
 
-import converter
-from downloaders import youtube
 
-from config import BOT_NAME as bn, DURATION_LIMIT
-from helpers.filters import command, other_filters
-from helpers.decorators import errors
-from helpers.errors import DurationLimitError
-from helpers.gets import get_url, get_file_name
-from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
-@Client.on_message(command("fplay") & other_filters)
-@errors
-async def play(_, message: Message):
-    
-    lel = await message.reply("🔄 **Processing** sounds...")
-    sender_id = message.from_user.id
-    sender_name = message.from_user.first_name
-    
-    keyboard = InlineKeyboardMarkup(
-        [
+@Client.on_message(filters.command('start'))
+async def start(_, message: Message):
+    await message.reply_text(
+        f"""I am {bn} !!
+•I let you play music in your group's voice chat 😉
+•Currently I am under a private vc music player ⏩
+•To add me take permission from Owner (https://t.me/akshi_s_ashu)
+•The commands I currently support are:
+⚜️ /play - Plays the replied audio file or YouTube video through link.
+⚜️ /pause - Pause Voice Chat Music.
+⚜️ /resume - Resume Voice Chat Music.
+⚜️ /skip - Skips the current Music Playing In Voice Chat.
+⚜️ /stop - Clears The Queue as well as ends Voice Chat Music.
+⚜️ /song (song name) - To search song and send song directly.
+⚜️ /yt (song name) - To search song from youtube and play directly 
+        """,
+        reply_markup=InlineKeyboardMarkup(
             [
-                InlineKeyboardButton(
-                    text="🔊 Channel",
-                    url="https://t.me/RIDERIANS")
-                
+                [
+                    InlineKeyboardButton(
+                        "Group 💬", url="https://t.me/phoenix_music_suport"
+                    ),
+                    InlineKeyboardButton(
+                        "Channel 📣", url="https://t.me/phoenix_music_new"
+                    ),
+                    InlineKeyboardButton(
+                        "Owner 👑", url="https://t.me/akshi_s_ashu"
+                    )
                 ]
             ]
         )
-                    
-    audio = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
-    url = get_url(message)
-
-    if audio:
-        if round(audio.duration / 60) > DURATION_LIMIT:
-            raise DurationLimitError(
-                f"**{bn} :-** 😕 Videos longer than {DURATION_LIMIT} minute(s) aren't allowed!\n🤐 The provided video is {audio.duration / 60} minute(s)"
-            )
-
-        file_name = get_file_name(audio)
-        file_path = await converter.convert(
-            (await message.reply_to_message.download(file_name))
-            if not path.isfile(path.join("downloads", file_name)) else file_name
-        )
-    elif url:
-        file_path = await converter.convert(youtube.download(url))
-    else:
-        return await message.reply_text(f"**{bn} :-** 🙄 You did not give me anything to play DEAR!")
-
-    if message.chat.id in callsmusic.pytgcalls.active_calls:
-        await message.reply_text(f"**{bn} :-** 😉 Queued ho chuka hai kaha pai at position #{await callsmusic.queues.put(message.chat.id, file_path=file_path)} !")
-    else:
-        callsmusic.pytgcalls.join_group_call(message.chat.id, file_path)
-        await message.reply_photo(
-        photo="https://telegra.ph/file/59f229464d0095c0ceca0.jpg",
-        reply_markup=keyboard,
-        caption="▶️ **Playing** here the song requested by {}!".format(
-        message.from_user.mention()
-        ),
     )
-        return await lel.delete()
 
+from pyrogram import Client, filters
+
+import youtube_dl
+from youtube_search import YoutubeSearch
+import requests
+
+import os
+
+# Convert hh:mm:ss to seconds
+def time_to_seconds(time):
+    stringt = str(time)
+    return sum(int(x) * 60  i for i, x in enumerate(reversed(stringt.split(':'))))
+
+
+@Client.on_message(filters.command(['song']))
+def a(client, message):
+    query = ''
+    for i in message.command[1:]:
+        query += ' ' + str(i)
+    print(query)
+    m = message.reply(f"🔎 Searching For** {query}")
+    ydl_opts = {"format": "bestaudio[ext=m4a]"}
+    try:
+        results = []
+        count = 0
+        while len(results) == 0 and count < 6:
+            if count>0:
+                time.sleep(1)
+            results = YoutubeSearch(query, max_results=1).to_dict()
+            count += 1
+        # results = YoutubeSearch(query, max_results=1).to_dict()
+        try:
+            link = f"https://youtube.com{results[0]['url_suffix']}"
+            # print(results)
+            title = results[0]["title"]
+            thumbnail = results[0]["thumbnails"][0]
+            duration = results[0]["duration"]
+            views = results[0]["views"]
+
+            ## UNCOMMENT THIS IF YOU WANT A LIMIT ON DURATION. CHANGE 1800 TO YOUR OWN PREFFERED DURATION AND EDIT THE MESSAGE (30 minutes cap) LIMIT IN SECONDS
+            # if time_to_seconds(duration) >= 1800:  # duration limit
+            #     m.edit("Exceeded 30mins cap")
+            #     return
+
+            performer = f"[MÚSÎC ẞø†]" 
+            thumb_name = f'thumb{message.message_id}.jpg'
+            thumb = requests.get(thumbnail, allow_redirects=True)
+            open(thumb_name, 'wb').write(thumb.content)
+            except Exception as e:
+            print(e)
+            m.edit('Found Literary Noting. Please Try Another Song or Use Correct Spelling!')
+            return
+    except Exception as e:
+        m.edit(
+            "Enter Song Name with Command!"
+        )
+        print(str(e))
+        return
+    m.edit(f"🔥 Uploading Song  {query} !")
+    try:
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            info_dict = ydl.extract_info(link, download=False)
+            audio_file = ydl.prepare_filename(info_dict)
+            ydl.process_info(info_dict)
+        rep = f'🏷 <b>Title:</b> <a href="{link}">{title}</a>\n⏳ <b>Duration:</b> <code>{duration}</code>\n👀 <b>Views:</b> <code>{views}</code>\n'
+        secmul, dur, dur_arr = 1, 0, duration.split(':')
+        for i in range(len(dur_arr)-1, -1, -1):
+            dur += (int(dur_arri]) * secmul)
+            secmul *= 60
+        message.reply_audio(audio_file, caption=rep, parse_mode='HTML',quote=False, title=title, duration=dur, performer=performer, thumb=thumb_name)
+        m.delete()
+        message.delete()
+    except Exception as e:
+        m.edit('An Error Occured. Please Report This To [SUPORT GROUP (https://t.me/phoenix_music_suport) !!')
+        print(e)
+    try:
+        os.remove(audio_file)
+        os.remove(thumb_name)
+    except Exception as e:
+        print(e)
