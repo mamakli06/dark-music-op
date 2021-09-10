@@ -26,7 +26,6 @@ async def start(_, message: Message):
 keyb += [[InlineKeyboardButton("Owner 👑", url="https://t.me/akshi_s_ashu"),InlineKeyboardButton("Commands", url="https://telegra.ph/Doreamon-Bot-09-10" )]]
 
 
-from pyrogram import Client, filters
 
 import youtube_dl
 from youtube_search import YoutubeSearch
