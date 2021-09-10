@@ -23,23 +23,23 @@ async def start(_, message: Message):
         """,
         reply_markup=InlineKeyboardMarkup(
             [
+                 [
+                    InlineKeyboardButton(
+                        "Group 💬", url="https://t.me/phoenix_music_suport"),
+                ],
                 [
                     InlineKeyboardButton(
-                        "Group 💬", url="https://t.me/phoenix_music_suport"
-                    ),
+                        "Channel 📣", url="https://t.me/phoenix_music_new"),
+                ],
+                [
                     InlineKeyboardButton(
-                        "Channel 📣", url="https://t.me/phoenix_music_new"
-                    ),
+                        "Owner 👑", url="https://t.me/akshi_s_ashu"),
+                ],
+                [
                     InlineKeyboardButton(
-                        "Owner 👑", url="https://t.me/akshi_s_ashu"
-                    ),
-                    InlineKeyboardButton(
-                        "Commands", url="https://telegra.ph/Doreamon-Bot-09-10"   
-                    )
-                ]
-            ]
-        )
-    )
+                        "Commands", url="https://telegra.ph/Doreamon-Bot-09-10"),   
+                ],
+          ]
 
 from pyrogram import Client, filters
 
