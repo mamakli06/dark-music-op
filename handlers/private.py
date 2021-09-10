@@ -22,24 +22,9 @@ async def start(_, message: Message):
 ⚜️ /yt (song name) - To search song from youtube and play directly 
         """,
         reply_markup=InlineKeyboardMarkup(
-            [
-                 [
-                    InlineKeyboardButton(
-                        "Group 💬", url="https://t.me/phoenix_music_suport"),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "Channel 📣", url="https://t.me/phoenix_music_new"),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "Owner 👑", url="https://t.me/akshi_s_ashu"),
-                ],
-                [
-                    InlineKeyboardButton(
-                        "Commands", url="https://telegra.ph/Doreamon-Bot-09-10"),   
-                ],
-          ]
+           keyb = [[InlineKeyboardButton("Group 💬", url="https://t.me/phoenix_music_suport"),InlineKeyboardButton("Channel 📣", url="https://t.me/phoenix_music_new")]]
+keyb += [[InlineKeyboardButton("Owner 👑", url="https://t.me/akshi_s_ashu"),InlineKeyboardButton("Commands", url="https://telegra.ph/Doreamon-Bot-09-10" )]]
+
 
 from pyrogram import Client, filters
 
