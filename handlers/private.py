@@ -12,14 +12,15 @@ async def start(_, message: Message):
 •I let you play music in your group's voice chat 😉
 •Currently I am under a private vc music player ⏩
 •To add me take permission from [Owner](https://t.me/akshi_s_ashu)
-•The commands I currently support are:
-⚜️ /play - __Plays the replied audio file or YouTube video through link.__
-⚜️ /pause - __Pause Voice Chat Music.__
-⚜️ /resume - __Resume Voice Chat Music.__
-⚜️ /skip - __Skips the current Music Playing In Voice Chat.__
-⚜️ /stop - __Clears The Queue as well as ends Voice Chat Music.__
-⚜️ /song (song name) - __To search song and send song directly.__
-⚜️ /yt (song name) - To search song from youtube and play directly 
+•Tԋҽ ƈσɱɱαɳԃʂ I ƈυɾɾҽɳƚʅყ ʂυρρσɾƚ αɾҽ:
+
+⚜️ /ρʅαყ -Tσ ʂҽαɾƈԋ ʂσɳɠ ϝɾσɱ ყσυƚυႦҽ αɳԃ ρʅαყ ԃιɾҽƈƚʅყ
+⚜️/ραυʂҽ - Pαυʂҽ Vσιƈҽ Cԋαƚ Mυʂιƈ.
+⚜️ /ɾҽʂυɱҽ - Rҽʂυɱҽ Vσιƈҽ Cԋαƚ Mυʂιƈ.
+⚜️ /ʂƙιρ - Sƙιρʂ ƚԋҽ ƈυɾɾҽɳƚ Mυʂιƈ Pʅαყιɳɠ Iɳ Vσιƈҽ Cԋαƚ.
+⚜️ /ʂƚσρ - Cʅҽαɾʂ Tԋҽ Qυҽυҽ αʂ ɯҽʅʅ αʂ ҽɳԃʂ Vσιƈҽ Cԋαƚ Mυʂιƈ.
+⚜️ /ʂσɳɠ (ʂσɳɠ ɳαɱҽ) - Tσ ʂҽαɾƈԋ ʂσɳɠ αɳԃ ʂҽɳԃ ʂσɳɠ ԃιɾҽƈƚʅყ.
+⚜️ /ϝρʅαყ (ɾҽρʅყ ƚσ αυԃισ σɾ ʅιɳƙ) - Pʅαყʂ ƚԋҽ ɾҽρʅιҽԃ αυԃισ ϝιʅҽ σɾ YσυTυႦҽ ʋιԃҽσ ƚԋɾσυɠԋ ʅιɳƙ. 
         """,
         reply_markup=InlineKeyboardMarkup(
             [
