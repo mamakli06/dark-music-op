@@ -36,7 +36,7 @@ async def start(_, message: Message):
                 ], 
                 [
                     InlineKeyboardButton(
-                        "Commands 🔥", url="https://telegra.ph/Doreamon-Bot-09-10"   
+                        "About 🔥", url="https://telegra.ph/Doreamon-Bot-09-10"   
                     )
                 ]
             ]
