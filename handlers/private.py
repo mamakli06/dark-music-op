@@ -27,13 +27,13 @@ https://telegra.ph/file/1bac7eac76a16f64d8afb.jpg
             [
                 [
                     InlineKeyboardButton(
-                        "Group 💬", url="https://t.me/phoenix_music_suport"
+                        "Group 💬", url="https://t.me/abhi_kusshu_jyoti"
                     ),
                     InlineKeyboardButton(
                         "Channel 📣", url="https://t.me/phoenix_music_new"
                     ),
                     InlineKeyboardButton(
-                        "Owner 👑", url="https://t.me/akshi_s_ashu"
+                        "Owner 👑", url="https://t.me/kusshu_000"
                     ),
                 ], 
                 [
