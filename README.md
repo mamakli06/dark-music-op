@@ -13,7 +13,7 @@ Available on telegram as [dark phoenix music](http://t.me/music_phoenix_dark_bot
 - ⚜️ /play - __Plays the replied audio file or YouTube video through link.__
 - ⚜️ /pause - __Pause Voice Chat Music.__
 - ⚜️ /resume - __Resume Voice Chat Music.__
-- ⚜️ /skip - __Skips the current Music Playing In Voice Chat.__
+- ⚜️ /skip - __Skipss the current Music Playing In Voice Chat.__
 - ⚜️ /stop - __Clears The Queue as well as ends Voice Chat Music.__
 - ⚜️ /song (song name) - __To search song and send song directly.__
 - ⚜️ /yt (song name) - To search song from youtube and play directly 
